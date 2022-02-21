@@ -1,3 +1,4 @@
+from sklearn.preprocessing import LabelEncoder
 def Label_Encoder_fit(df, categorical_features):
     """label encoder fit funtion, 
     Return label encoded DataFrame and encoder classes dict 
