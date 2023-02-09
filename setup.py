@@ -14,8 +14,9 @@ setup(
     description=DESCRIPTION,
     long_description_content_type="text/markdown",
     long_description=LONG_DESCRIPTION,
-    packages=find_packages(),
-    install_requires=['sklearn'],
+    packages=find_packages(where="src"),
+    package_dir={"": "src"},
+    install_requires=[],
     keywords=['Inference', 'Label encoder', 'Persistent Label Encoder'],
     classifiers=[
         "Development Status :: 1 - Planning",

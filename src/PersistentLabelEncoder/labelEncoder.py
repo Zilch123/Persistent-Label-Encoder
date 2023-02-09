@@ -1,13 +1,13 @@
 from sklearn.preprocessing import LabelEncoder
 
-class PersistentLabelEncoder:
-    def Label_Encoder_fit(df, categorical_features):
+class Encoder:
+    def fit(df, categorical_features):
         """label encoder fit funtion, 
         Return label encoded DataFrame and encoder classes dict 
 
         Args:
             df (pandas dataframe): input to label encoder, 
-            categorical_Features = ['f1', 'f2', ... 'fn']
+            categorical_Features: List of column attributes E.g:['f1',...'fn']
 
         Returns:
             lbl_data- [dataframe]: label encoded values for training
@@ -26,19 +26,18 @@ class PersistentLabelEncoder:
         return lbl_data, encoder_dict
 
 
-    def label_encode_transform(df_infer, encoder, categorical_features):
+    def transform(df_infer, encoder_dict, categorical_features, unknown_label = 'Unknown'):
         """Function used in Inference for Label encode transformation
 
         Args:
             df_infer (dataframe): input dataframe
-            encoder (encoder dict pickle File Path): pickle file generated from Training
+            encoder (encoder dict): Encoder dict generated from Training
 
         Returns:
             df_infer [dataframe]: Label encoded DataFrame
         """
 
         lbl_input = df_infer[categorical_features].copy()
-        encoder_dict = joblib.load(encoder)
         for cat in encoder_dict:
             for col in lbl_input.columns:
                 le = LabelEncoder()
@@ -46,6 +45,6 @@ class PersistentLabelEncoder:
                     le.classes_ = encoder_dict[cat]
                     for unique_item in lbl_input[col].unique():
                         if unique_item not in le.classes_:
-                            lbl_input[col] = ['Unknown' if x == unique_item else x for x in lbl_input[col]]
+                            lbl_input[col] = [unknown_label if x == unique_item else x for x in lbl_input[col]]
                     df_infer[col] = le.transform(lbl_input[col])
         return df_infer
