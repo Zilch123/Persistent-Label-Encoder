@@ -20,7 +20,9 @@ class Encoder:
         enc = LabelEncoder()
         encoder_dict = dict()
         for cat in categorical_features:
-            enc = enc.fit(list(df_input[cat]) + ['Unknown'])
+            series = df_input[cat][df_input[cat].notnull()]
+            series.loc[len(series)] = 'Unknown'
+            enc = enc.fit(list(series), index=series.index)
             encoder_dict[cat] = [str(cat) for cat in enc.classes_]
             lbl_data[cat] = enc.transform(df_input[cat])
         return lbl_data, encoder_dict
