@@ -17,14 +17,15 @@ class Encoder:
         
         lbl_data = df.copy()
         df_input = df[categorical_features].copy()
-        enc = LabelEncoder()
         encoder_dict = dict()
         for cat in categorical_features:
+            enc = LabelEncoder()
             series = df_input[cat][df_input[cat].notnull()]
             series.loc[len(series)] = 'Unknown'
-            enc = enc.fit(list(series))
+            encoded_series = pd.Series(enc.fit_transform(series), index=series.index)
+
             encoder_dict[cat] = [str(cat) for cat in enc.classes_]
-            lbl_data[cat] = enc.transform(series[:-1])
+            lbl_data[cat] = encoded_series[:-1]
         return lbl_data, encoder_dict
 
 
