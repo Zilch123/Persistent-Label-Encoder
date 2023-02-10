@@ -11,5 +11,5 @@ setup(
    author='Timoth Dev (Zilch123)',
    author_email='timontunes@gmail.com',
    packages=['PersistentLabelEncoder'], 
-   install_requires=requirements,
+   install_requires=[],
 )
