@@ -24,7 +24,7 @@ class Encoder:
             series.loc[len(series)] = 'Unknown'
             enc = enc.fit(list(series))
             encoder_dict[cat] = [str(cat) for cat in enc.classes_]
-            lbl_data[cat] = enc.transform(df_input[cat])
+            lbl_data[cat] = enc.transform(series[:-1])
         return lbl_data, encoder_dict
 
 
