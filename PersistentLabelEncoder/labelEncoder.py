@@ -22,7 +22,7 @@ class Encoder:
         for cat in categorical_features:
             series = df_input[cat][df_input[cat].notnull()]
             series.loc[len(series)] = 'Unknown'
-            enc = enc.fit(list(series), index=series.index)
+            enc = enc.fit(list(series))
             encoder_dict[cat] = [str(cat) for cat in enc.classes_]
             lbl_data[cat] = enc.transform(df_input[cat])
         return lbl_data, encoder_dict
