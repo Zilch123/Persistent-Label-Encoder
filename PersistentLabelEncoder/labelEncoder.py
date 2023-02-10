@@ -1,5 +1,5 @@
 from sklearn.preprocessing import LabelEncoder
-
+import pandas as pd
 class Encoder:
     def fit(df, categorical_features):
         """label encoder fit funtion, 
